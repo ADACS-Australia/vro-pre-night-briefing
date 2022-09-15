@@ -7,4 +7,9 @@ flask
 # Rubin Sim specific
 bokeh
 astropy
+pandas
+healpy
+palpy
+cython
+h5py
 git+https://github.com/lsst/rubin_sim.git@0.11.0

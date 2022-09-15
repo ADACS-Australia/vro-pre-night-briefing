@@ -5,7 +5,9 @@
 #    pip-compile requirements.in
 #
 astropy==5.1
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   healpy
 bokeh==2.4.3
     # via -r requirements.in
 build==0.8.0
@@ -14,7 +16,17 @@ click==8.1.3
     # via
     #   flask
     #   pip-tools
+cycler==0.11.0
+    # via matplotlib
+cython==0.29.32
+    # via -r requirements.in
 flask==2.2.2
+    # via -r requirements.in
+fonttools==4.37.1
+    # via matplotlib
+h5py==3.7.0
+    # via -r requirements.in
+healpy==1.16.1
     # via -r requirements.in
 importlib-metadata==4.12.0
     # via flask
@@ -24,36 +36,64 @@ jinja2==3.1.2
     # via
     #   bokeh
     #   flask
+kiwisolver==1.4.4
+    # via matplotlib
 markupsafe==2.1.1
     # via
     #   jinja2
     #   werkzeug
+matplotlib==3.5.3
+    # via healpy
 numpy==1.23.2
     # via
     #   astropy
     #   bokeh
+    #   h5py
+    #   healpy
+    #   matplotlib
+    #   pandas
     #   pyerfa
+    #   scipy
 packaging==21.3
     # via
     #   astropy
     #   bokeh
     #   build
+    #   matplotlib
+palpy==1.8.1
+    # via -r requirements.in
+pandas==1.4.4
+    # via -r requirements.in
 pep517==0.13.0
     # via build
 pillow==9.2.0
-    # via bokeh
+    # via
+    #   bokeh
+    #   matplotlib
 pip-tools==6.8.0
     # via -r requirements.in
 pyerfa==2.0.0.1
     # via astropy
 pyparsing==3.0.9
-    # via packaging
+    # via
+    #   matplotlib
+    #   packaging
+python-dateutil==2.8.2
+    # via
+    #   matplotlib
+    #   pandas
+pytz==2022.2.1
+    # via pandas
 pyyaml==6.0
     # via
     #   astropy
     #   bokeh
 rubin-sim @ git+https://github.com/lsst/rubin_sim.git@0.11.0
     # via -r requirements.in
+scipy==1.9.1
+    # via healpy
+six==1.16.0
+    # via python-dateutil
 tomli==2.0.1
     # via
     #   build
