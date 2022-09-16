@@ -356,26 +356,31 @@ class SphereMap:
         finite_hpids = hpids[values_are_finite]
         finite_values = values[values_are_finite]
 
+        def de_nanify(data):
+            data = pd.DataFrame(data.tolist()) if type(data) is not list else pd.DataFrame(data)
+            data.replace([np.inf, -np.inf, np.NaN], "NaN", inplace=True)
+            return data.values.tolist()
+
         hpix = bokeh.models.ColumnDataSource(
             {
-                "hpid": finite_hpids,
-                "value": finite_values,
-                "center_ra": finite_hpix_data["center_ra"].tolist(),
-                "center_decl": finite_hpix_data["center_decl"].tolist(),
-                "ra": finite_hpix_data["ra"].tolist(),
-                "decl": finite_hpix_data["decl"].tolist(),
-                "x_hp": finite_hpix_data["x_hp"].tolist(),
-                "y_hp": finite_hpix_data["y_hp"].tolist(),
-                "z_hp": finite_hpix_data["z_hp"].tolist(),
-                "x_orth": finite_hpix_data["x_orth"].tolist(),
-                "y_orth": finite_hpix_data["y_orth"].tolist(),
-                "z_orth": finite_hpix_data["z_orth"].tolist(),
-                "x_laea": finite_hpix_data["x_laea"].tolist(),
-                "y_laea": finite_hpix_data["y_laea"].tolist(),
-                "x_moll": finite_hpix_data["x_moll"].tolist(),
-                "y_moll": finite_hpix_data["y_moll"].tolist(),
-                "x_hz": finite_hpix_data["x_hz"].tolist(),
-                "y_hz": finite_hpix_data["y_hz"].tolist(),
+                "hpid": de_nanify(finite_hpids),
+                "value": de_nanify(finite_values),
+                "center_ra": de_nanify(finite_hpix_data["center_ra"]),
+                "center_decl": de_nanify(finite_hpix_data["center_decl"]),
+                "ra": de_nanify(finite_hpix_data["ra"]),
+                "decl": de_nanify(finite_hpix_data["decl"]),
+                "x_hp": de_nanify(finite_hpix_data["x_hp"]),
+                "y_hp": de_nanify(finite_hpix_data["y_hp"]),
+                "z_hp": de_nanify(finite_hpix_data["z_hp"]),
+                "x_orth": de_nanify(finite_hpix_data["x_orth"]),
+                "y_orth": de_nanify(finite_hpix_data["y_orth"]),
+                "z_orth": de_nanify(finite_hpix_data["z_orth"]),
+                "x_laea": de_nanify(finite_hpix_data["x_laea"]),
+                "y_laea": de_nanify(finite_hpix_data["y_laea"]),
+                "x_moll": de_nanify(finite_hpix_data["x_moll"]),
+                "y_moll": de_nanify(finite_hpix_data["y_moll"]),
+                "x_hz": de_nanify(finite_hpix_data["x_hz"]),
+                "y_hz": de_nanify(finite_hpix_data["y_hz"]),
             }
         )
 
@@ -1046,18 +1051,12 @@ class SphereMap:
 
         self.healpix_cmap = cmap
 
-        data = {
-            self.x_col: data_source.data[self.x_col],
-            self.y_col: data_source.data[self.y_col],
-            "value": data_source.data["value"]
-        }
-
         hpgr = self.plot.patches(
             xs=self.x_col,
             ys=self.y_col,
             fill_color=cmap,
             line_color=cmap,
-            source=data,
+            source=data_source,
         )
 
         self.healpix_glyph = hpgr.glyph
@@ -1581,7 +1580,7 @@ class HorizonMap(MovingSphereMap):
 class ArmillarySphere(MovingSphereMap):
     x_col = "x_orth"
     y_col = "y_orth"
-    proj_slider_keys = ["alt", "az", "mjd"]
+    proj_slider_keys = ["alt"] #, "az", "mjd"]
     default_title = "Armillary Sphere"
 
     def set_js_update_func(self, data_source):

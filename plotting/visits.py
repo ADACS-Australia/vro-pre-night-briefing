@@ -80,7 +80,7 @@ def skymaps(visits, footprint, conditions):
     asphere.sliders["mjd"].start = conditions.sun_n12_setting
     asphere.sliders["mjd"].end = conditions.sun_n12_rising
 
-    return [psphere.figure] #[asphere.figure, psphere.figure]
+    return [asphere.figure, psphere.figure]
 
 
 def get_footprint():
