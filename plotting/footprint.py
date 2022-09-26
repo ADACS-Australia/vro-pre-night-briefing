@@ -1,3 +1,4 @@
+import traceback
 from concurrent.futures import ThreadPoolExecutor
 
 import bokeh.layouts
@@ -67,6 +68,7 @@ def make_footprint():
         return planispheres
     except Exception as e:
         print(e)
+        traceback.print_exc()
 
 
 def skymap(footprint, conditions, map_class=Planisphere):
@@ -96,4 +98,4 @@ def skymap(footprint, conditions, map_class=Planisphere):
 
 def generate_footprint_plot():
     result = worker.submit(make_footprint)
-    return bokeh.layouts.row(result.result())
+    return bokeh.layouts.row(result.result(), sizing_mode="scale_both")

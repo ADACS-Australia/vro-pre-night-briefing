@@ -1,22 +1,38 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Embed Demo</title>
-  </head>
-  <body>
+    <title>VRO Pre-night Briefing</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
     <div>
-        <b>Night Reward</b>
+        <h4>Astronomical Events</h4>
+        {% if astronomical_events is not none %}
+            {{ astronomical_events.to_html(classes=["table", "table-bordered", "table-striped", "table-hover"]) | safe }}
+        {% else %}
+            Astronomical Events are being calculated
+        {% endif %}
+        <hr>
     </div>
-    {{ night_reward_script|safe }}
     <div>
-        <b>Survey Footprint</b>
+        <h4>Night Reward</h4>
+        {{ night_reward_script|safe }}
+        <hr>
     </div>
-    {{ footprint_script|safe }}
     <div>
-        <b>Survey Visits</b>
+        <h4>Survey Footprint</h4>
+        {{ footprint_script|safe }}
+        <hr>
     </div>
-    {{ visit_script|safe }}
-  </body>
+    <div>
+        <h4>Survey Visits</h4>
+        {{ visit_script|safe }}
+    </div>
+</div>
+</body>
 </html>

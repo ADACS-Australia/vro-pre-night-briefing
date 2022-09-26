@@ -1,4 +1,5 @@
 import sqlite3
+import traceback
 from concurrent.futures import ThreadPoolExecutor
 
 import bokeh.layouts
@@ -131,6 +132,7 @@ def make_visit():
         return skymaps(visits, footprint, night_middle_conditions)
     except Exception as e:
         print(e)
+        traceback.print_exc()
 
 
 def generate_visit_plot():

@@ -2,15 +2,15 @@ import warnings
 from concurrent.futures import ProcessPoolExecutor
 
 import bokeh
+import bokeh.layouts
 import bokeh.palettes
 import bokeh.plotting
+import numpy as np
+import pandas as pd
 from astropy.time import Time
 from rubin_sim.scheduler.modelObservatory import Model_observatory
 
 from plotting.settings import scheduler, NIGHT
-import numpy as np
-import pandas as pd
-
 
 worker_pool = ProcessPoolExecutor(1)
 
@@ -150,6 +150,9 @@ def generate_night_rewards_plot():
     with warnings.catch_warnings():
         warnings.filterwarnings('ignore', category=RuntimeWarning, lineno=552)
         warnings.filterwarnings('ignore', category=FutureWarning, lineno=465)
-        return _make_night_reward_plot(
-            freq="10T"
+        return bokeh.layouts.row(
+            _make_night_reward_plot(
+                freq="10T"
+            ),
+            sizing_mode="stretch_width"
         )
